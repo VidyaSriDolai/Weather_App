@@ -26,4 +26,5 @@ It fetches live weather data using an API and displays it in an intuitive, respo
 - **jQuery** — simplified DOM manipulation & event handling  
 - **Weather API** — fetches live weather data (example: [OpenWeatherMap](https://openweathermap.org/api))
 - you can watch my SCREEN SHOTS HERE:https://github.com/VidyaSriDolai/Weather_App/issues/1#issue-3128133758
+- YOU CAN VIEW MY FILES HERE IN THE weatherapp ZIP:https://github.com/VidyaSriDolai/Weather_App/commit/84d61e88e1cdf453fd6b9a697bc70f942cbfbc50#commitcomment-159518500
 
