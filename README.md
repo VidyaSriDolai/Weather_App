@@ -6,7 +6,7 @@ It fetches live weather data using an API and displays it in an intuitive, respo
 
 ## 🚀 Live Demo
 
-👉 [Live Demo](#) *(Add your live URL here if deployed, e.g. GitHub Pages)*
+👉 [Live Demo](#) *( https://vidyasridolai.github.io/Weather_App/)*
 
 ## ✨ Features
 
