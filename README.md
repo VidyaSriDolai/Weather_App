@@ -4,10 +4,6 @@
 A simple and elegant **real-time weather application** that allows users to search for current weather conditions of any city worldwide.  
 It fetches live weather data using an API and displays it in an intuitive, responsive interface.
 
-## 🚀 Live Demo
-
-👉 [Live Demo](#) *( https://vidyasridolai.github.io/Weather_App/)*
-
 ## ✨ Features
 
 ✅ Search weather by **city name**  
