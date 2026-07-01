@@ -1,1 +1,261 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+    
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:700px;
+}
+
+.search-box{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+input{
+flex:1;
+padding:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+}
+
+button{
+padding:15px 25px;
+border:none;
+border-radius:10px;
+background:#00c6ff;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.card{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:20px;
+display:none;
+}
+
+.city{
+font-size:30px;
+font-weight:bold;
+}
+
+.temp{
+font-size:70px;
+margin:15px 0;
+}
+
+.desc{
+font-size:20px;
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
+.box{
+background:rgba(255,255,255,0.08);
+padding:15px;
+border-radius:15px;
+text-align:center;
+}
+
+.box h3{
+font-size:14px;
+margin-bottom:10px;
+color:#ddd;
+}
+
+.box p{
+font-size:20px;
+font-weight:bold;
+}
+
+img{
+width:80px;
+height:80px;
+}
+
+.error{
+color:red;
+margin-top:10px;
+}
+</style>
+</head>
+<body>
+<div style="position:fixed;inset:0;background-image:linear-gradient(rgba(0,247,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,247,255,.05) 1px,transparent 1px);background-size:40px 40px;z-index:-1;"></div>
+<div class="container">
+
+<div class="search-box">
+<input type="text" id="cityInput" placeholder="Enter City Name">
+<button onclick="getWeather()">Search</button>
+</div>
+
+<p id="error" class="error"></p>
+
+<div class="card" id="weatherCard">
+
+<div class="city" id="city"></div>
+
+<img id="icon">
+
+<div class="temp" id="temperature"></div>
+
+<div class="desc" id="description"></div>
+
+<div class="grid">
+
+<div class="box">
+<h3>Humidity</h3>
+<p id="humidity"></p>
+</div>
+
+<div class="box">
+<h3>Wind</h3>
+<p id="wind"></p>
+</div>
+
+<div class="box">
+<h3>Pressure</h3>
+<p id="pressure"></p>
+</div>
+
+<div class="box">
+<h3>Visibility</h3>
+<p id="visibility"></p>
+</div>
+
+<div class="box">
+<h3>Feels Like</h3>
+<p id="feels"></p>
+</div>
+
+<div class="box">
+<h3>UV Index</h3>
+<p id="uv"></p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const API_KEY = "556f88ad8c224116a2d181228261306";
+
+async function getWeather(){
+
+const city =
+document.getElementById("cityInput").value;
+
+const error =
+document.getElementById("error");
+
+error.innerHTML="";
+
+try{
+
+const response =
+await fetch(
+`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=yes`
+);
+
+const data =
+await response.json();
+
+if(data.error){
+error.innerHTML=data.error.message;
+return;
+}
+
+document.getElementById("weatherCard").style.display="block";
+
+document.getElementById("city").innerHTML =
+`${data.location.name}, ${data.location.country}`;
+
+document.getElementById("temperature").innerHTML =
+`${data.current.temp_c}°C`;
+
+document.getElementById("description").innerHTML =
+data.current.condition.text;
+
+document.getElementById("humidity").innerHTML =
+`${data.current.humidity}%`;
+
+document.getElementById("wind").innerHTML =
+`${data.current.wind_kph} km/h`;
+
+document.getElementById("pressure").innerHTML =
+`${data.current.pressure_mb} mb`;
+
+document.getElementById("visibility").innerHTML =
+`${data.current.vis_km} km`;
+
+document.getElementById("feels").innerHTML =
+`${data.current.feelslike_c}°C`;
+
+document.getElementById("uv").innerHTML =
+data.current.uv;
+
+document.getElementById("icon").src =
+"https:" + data.current.condition.icon;
+
+}
+catch(err){
+
+error.innerHTML =
+"Failed to fetch weather data.";
+
+}
+
+}
+
+document.getElementById("cityInput")
+.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+getWeather();
+}
+
+});
+
+</script>
+
+</body>
+</html>
